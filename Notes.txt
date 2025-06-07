@@ -1,0 +1,110 @@
+Day #1:
+-DOCKER
+1:Docker is a containerization platform for developing,
+packaging, shipping and running applications
+2:it provides the ability to run an application in aan isolated
+env called container.
+3:makes dev and deplomnt efficient
+
+-CONTAINER
+1:A Container is a way to package an app with all necessary
+dependencies and configs.
+2:It can be easily shared. [point 3 same].
+
+- ARCHITECTURE
+1:Hardware 2:OS 3:Docker Engine.
+
+-DOCKER VS VMS?
+1: Low Impact on OS, very fast, low disk space usage.
+2: sharing, rebuilding and distribution
+is easy.
+3:encapsulate apps intead of whole machines.
+
+-DOCKER Registry
+It is a central repo of docker images.
+
+-MAIN COMPONENTS OF DOCKER
+1: DockerFile
+2: Docker Image
+3: Docker Container
+4: Docker Registry
+
+-FLOW
+1:DockerFile[instruction to build an image] -> image -> -> -> [3 containers etc]
+-> create dockerfile -> docker build . [docker build -t mern-todo-frontend .]
+[to check image] docker image ls
+manage and running containers:
+docker run 379952c10360 [docker run -it 379952c10360]
+docker ps
+docker stop [name]
+docker build -t mern-todo-frontend .
+docker run -p 5173:5173 --env-file .env mern-todo-frontend
+
+[running in background][do this instead of what u did above]
+docker run -d -p 5173:5173 eaaa85e399e7
+
+[running multiple containers]
+change port and run above same command
+
+docker rm [name of the container]
+docker ps -a
+
+docker run -d --rm --name "nameOfMyWebApp" -p 5173:5173 eaaa85e399e7
+
+-MANAGING Image
+docker build -t mern-todo-frontend:01 .
+[01 is the version]
+docker rmi to delete image [name][version]
+
+-Updating[change after updating the projects]
+docker build -t mern-todo-frontend:02
+
+-RUNNING TWO AT THE SAME TIME:
+docker run -d --rm --name "mern-todo-frontend" -p 5173:5173 mern-todo-frontend:02
+docker run -d --rm --name "mern-todo-frontend01" -p 5174:5173 mern-todo-frontend:02
+
+-PREDEFINED IMAGE:
+docker pull nginx
+docker run -p 8080:80 nginx:latest
+
+-HOW TO SHARE DOCKER IMAGES
+1; dockerhub
+2. push local image from our system to dockerhub
+[docker login]
+[docker build -t talhadevelopes/mern-todo-frontend:01 .]
+[docker push talhadevelopes/mern-todo-frontend:tagname]
+
+-HOW TO RENAME
+docker tag mern-todo-frontend:01 talhadevelopes/mern-todo-frontend:01
+
+-HOW TO PULL AND USE IMAGES IN TOTALLY DIFFRENT system
+docker pull talhadevelopes/mern-todo-frontend:03
+docker run -p 5173:5173 talhadevelopes/mern-todo-frontend:03
+
+-VOLUMES
+Q, Why do we create volumes
+
+creating volumes
+docker run -it --rm -v myvloume:/myapp/ mern-todo-frontend
+docker volume ls
+docker volume instpect myvloume
+
+-MOUNT BINDS IN DOCKER:
+Q, Where it is used? and why?
+docker run -v [paste absolute path]:/myapp/[which file u wanna mount, servers.txt] --rm 0219n2j1nj
+
+.dockerignore [add what u dont want to get added to image]
+
+-COMMUNICATION FROM/TO containers
+we use docker compose
+docker-compose up
+docker-compose up -d [detatched mode]
+docker-compose down
+-FOR INTERACTIVE ONE
+stdin_open: true
+tty: true
+
+if we want to close serveices aswell as we want to delete the networks aswell
+docker-compose down -v
+
+--build [to again build image and run]

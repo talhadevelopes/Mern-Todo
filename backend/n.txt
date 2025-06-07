@@ -1,0 +1,1 @@
+mongodb+srv://trainedbot10k:0eyknjIvX3HBcucv@cluster0.9kyqz0f.mongodb.net/mongodb+srv://trainedbot10k:0eyknjIvX3HBcucv@cluster0.9kyqz0f.mongodb.net/

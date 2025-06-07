@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  frontend:
+    image: talhadevelopes/mern-todo-frontend:06
+    container_name: mern-todo-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./frontend/.env
+    depends_on:
+      - backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5173"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - mern-network
+
+  backend:
+    image: talhadevelopes/mern-todo-backend:06
+    container_name: mern-todo-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3006:3006"
+    env_file:
+      - ./backend/.env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3006"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - mern-network
+
+networks:
+  mern-network:
+    driver: bridge
